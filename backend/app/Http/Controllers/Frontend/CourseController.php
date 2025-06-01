@@ -50,6 +50,7 @@ class CourseController extends Controller
 
         return response()->json([
             'status' => 200,
+            'data' => $course,
             'message' => 'Course Created Successfully!'
         ],200);
     }
