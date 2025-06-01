@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Layout from '../../common/Layout'
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import {ProgressBar, Accordion } from 'react-bootstrap';
 import { MdSlowMotionVideo } from "react-icons/md";
 
 const WatchCourse = () => {
+    // Page Title
+      useEffect(() => {
+        document.title = "Smart Learning | Watch Course";
+      }, []);
   return (
     <Layout>
       <section className='section-5 my-5'>
