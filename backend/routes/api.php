@@ -13,5 +13,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+
+    Route::get('/courses/meta-data', [CourseController::class, 'metaData']);
     Route::resource('/courses', CourseController::class);
 });

@@ -33,7 +33,7 @@ const Register = () => {
         console.log(result);
         if (result.status === 200) {
           toast.success(result.message);
-          navigate('/account/login')
+          navigate("/account/login");
         } else {
           const errors = result.errors;
           Object.keys(errors).forEach((field) => {
