@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { apiUrl, token } from "../../../common/Config";
 import { useForm } from "react-hook-form";
 import ManageOutcome from "./ManageOutcome";
+import ManageRequirement from "./ManageRequirement";
 
 const EditCourse = () => {
   // Page Title
@@ -308,6 +309,7 @@ const EditCourse = () => {
 
                 <div className="col-md-5">
                   <ManageOutcome/>
+                  <ManageRequirement/>
                 </div>
               </div>
             </div>
