@@ -22,5 +22,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/sort-outcomes', [OutcomeController::class, 'sortOutcomes']);
     Route::resource('/outcomes', OutcomeController::class);
     // Requirement All Route
+    Route::post('/sort-requirements', [RequirementController::class, 'sortRequirements']);
     Route::resource('/requirements', RequirementController::class);
 });
