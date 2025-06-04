@@ -46,6 +46,7 @@ class OutcomeController extends Controller
 
         return response()->json([
             'status' => 200,
+            'data' => $outcome,
             'message' => 'Outcomes Added Successfully!'
         ], 200);
     }
@@ -81,6 +82,7 @@ class OutcomeController extends Controller
 
         return response()->json([
             'status' => 200,
+            'data' => $outcome,
             'message' => 'Outcome Updated Successfully!'
         ], 200);
     }

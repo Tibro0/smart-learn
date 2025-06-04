@@ -5,6 +5,7 @@ import UserSidebar from "../../../common/UserSidebar";
 import toast from "react-hot-toast";
 import { apiUrl, token } from "../../../common/Config";
 import { useForm } from "react-hook-form";
+import ManageOutcome from "./ManageOutcome";
 
 const EditCourse = () => {
   // Page Title
@@ -297,9 +298,7 @@ const EditCourse = () => {
                           />
                         </div>
 
-                        <button 
-                        disabled={loading}
-                        className="btn btn-primary">
+                        <button disabled={loading} className="btn btn-primary">
                           {loading === false ? "Update" : "Please Wait..."}
                         </button>
                       </div>
@@ -307,7 +306,9 @@ const EditCourse = () => {
                   </form>
                 </div>
 
-                <div className="col-md-5"></div>
+                <div className="col-md-5">
+                  <ManageOutcome/>
+                </div>
               </div>
             </div>
           </div>
