@@ -19,6 +19,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/courses/meta-data', [CourseController::class, 'metaData']);
     Route::resource('/courses', CourseController::class);
     // Outcome All Route
+    Route::post('/sort-outcomes', [OutcomeController::class, 'sortOutcomes']);
     Route::resource('/outcomes', OutcomeController::class);
     // Requirement All Route
     Route::resource('/requirements', RequirementController::class);
