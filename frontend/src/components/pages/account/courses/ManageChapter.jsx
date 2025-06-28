@@ -73,6 +73,30 @@ const ManageChapter = ({ course, params }) => {
       });
   };
 
+  const deleteChapter = async (id) => {
+    if (confirm("Are you sure you want to delete ?")) {
+      await fetch(`${apiUrl}/chapters/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        // console.log(result);
+        setLoading(false);
+        if (result.status === 200) {
+          setChapters({ type: "DELETE_CHAPTER", payload: id });
+          toast.success(result.message);
+        } else {
+          console.log("Something is Wrong!");
+        }
+      });
+    }
+  };
+
   useEffect(() => {
     if (course.chapters) {
       setChapters({ type: "SET_CHAPTER", payload: course.chapters });
@@ -112,7 +136,9 @@ const ManageChapter = ({ course, params }) => {
                   <Accordion.Header>{chapter.title}</Accordion.Header>
                   <Accordion.Body>
                     <div className="d-flex">
-                      <button className="btn btn-danger btn-sm">Delete Chapter</button>
+                      <button 
+                      onClick={()=> deleteChapter(chapter.id)}
+                      className="btn btn-danger btn-sm">Delete Chapter</button>
                       <button
                       onClick={() => handleShow(chapter)}
                       className="btn btn-primary btn-sm ms-2">Update Chapter</button>
