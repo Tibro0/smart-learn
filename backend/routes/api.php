@@ -16,6 +16,7 @@ Route::get('/user', function (Request $request) {
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     // Course All Route
+    Route::post('/save-courses-image/{id}', [CourseController::class, 'saveCourseImage']);
     Route::get('/courses/meta-data', [CourseController::class, 'metaData']);
     Route::resource('/courses', CourseController::class);
     // Outcome All Route

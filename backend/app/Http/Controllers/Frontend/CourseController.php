@@ -8,7 +8,10 @@ use App\Models\Course;
 use App\Models\Language;
 use App\Models\Level;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class CourseController extends Controller
 {
@@ -152,6 +155,61 @@ class CourseController extends Controller
             'categories' => $categories,
             'levels' => $levels,
             'languages' => $languages,
+        ], 200);
+    }
+
+    public function saveCourseImage(string $id, Request $request)
+    {
+        $course = Course::findOrFail($id);
+
+        if ($course === null) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Course not found!'
+            ], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'image' => 'required|mimes:png,jpg,jpeg'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->errors()
+            ], 400);
+        }
+
+        if ($course->image != "") {
+            if (File::exists(public_path('uploads/course/' . $course->image))) {
+                File::delete(public_path('uploads/course/' . $course->image));
+            }
+
+            if (File::exists(public_path('uploads/course/small/' . $course->image))) {
+                File::delete(public_path('uploads/course/small/' . $course->image));
+            }
+
+        }
+
+        $image = $request->image;
+        $ext = $image->getClientOriginalExtension();
+        $imageName = strtotime('now') . '-' . $id . '.' . $ext;
+        $image->move(public_path('uploads/course'), $imageName);
+
+        // create Small Thumbnail
+        $manager = new ImageManager(Driver::class);
+        $img = $manager->read(public_path('uploads/course/'. $imageName));
+        $img->cover(750, 450);
+        $img->save(public_path('uploads/course/small/'. $imageName));
+
+
+        $course->image = $imageName;
+        $course->save();
+
+        return response()->json([
+            'status' => 200,
+            'data' => $course,
+            'message' => 'Image Uploaded Successfully!'
         ], 200);
     }
 }
