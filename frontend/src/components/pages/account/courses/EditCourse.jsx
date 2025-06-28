@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import ManageOutcome from "./ManageOutcome";
 import ManageRequirement from "./ManageRequirement";
 import EditCover from "./EditCover";
+import ManageChapter from "./ManageChapter";
 
 const EditCourse = () => {
   // Page Title
@@ -310,6 +311,8 @@ const EditCourse = () => {
                       </div>
                     </div>
                   </form>
+
+                  <ManageChapter course={course} params={params}/>
                 </div>
 
                 <div className="col-md-5">
