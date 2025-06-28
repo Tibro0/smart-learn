@@ -7,6 +7,7 @@ import { apiUrl, token } from "../../../common/Config";
 import { useForm } from "react-hook-form";
 import ManageOutcome from "./ManageOutcome";
 import ManageRequirement from "./ManageRequirement";
+import EditCover from "./EditCover";
 
 const EditCourse = () => {
   // Page Title
@@ -16,6 +17,8 @@ const EditCourse = () => {
 
   const params = useParams();
   const [loading, setLoading] = useState(false);
+  const [course, setCourse] = useState([]);
+
   const {
     register,
     handleSubmit,
@@ -44,6 +47,8 @@ const EditCourse = () => {
               sell_price: result.data.price,
               cross_price: result.data.cross_price,
             });
+
+            setCourse(result.data);
           } else {
             console.log("Something is Wrong!");
           }
@@ -308,8 +313,9 @@ const EditCourse = () => {
                 </div>
 
                 <div className="col-md-5">
-                  <ManageOutcome/>
-                  <ManageRequirement/>
+                  <ManageOutcome />
+                  <ManageRequirement />
+                  <EditCover course={course} setCourse={setCourse} />
                 </div>
               </div>
             </div>
