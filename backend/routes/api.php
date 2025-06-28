@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Frontend\AccountController;
+use App\Http\Controllers\Frontend\ChapterController;
 use App\Http\Controllers\Frontend\CourseController;
 use App\Http\Controllers\Frontend\OutcomeController;
 use App\Http\Controllers\Frontend\RequirementController;
@@ -25,4 +26,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // Requirement All Route
     Route::post('/sort-requirements', [RequirementController::class, 'sortRequirements']);
     Route::resource('/requirements', RequirementController::class);
+
+    // Chapter All Route
+    Route::post('/sort-chapters', [ChapterController::class, 'sortChapters']);
+    Route::resource('/chapters', ChapterController::class);
 });
