@@ -66,7 +66,7 @@ class CourseController extends Controller
      */
     public function show(string $id)
     {
-        $course = Course::with('chapters')->findOrFail($id);
+        $course = Course::with(['chapters', 'chapters.lessons'])->findOrFail($id);
 
         if ($course === null) {
             return response()->json([
