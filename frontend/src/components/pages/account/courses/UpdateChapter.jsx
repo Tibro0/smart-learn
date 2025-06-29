@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 
 const UpdateChapter = ({chapterData, showChapter, handleClose, setChapters}) => {
 
-    const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
