@@ -178,7 +178,7 @@ const ManageChapter = ({ course, params }) => {
                                     lesson.is_free_preview == 'yes' && <span className="badge bg-success">Preview</span>
                                   }
                                   
-                                  <Link className="ms-2"><BsPencilSquare /></Link>
+                                  <Link to={`/account/courses/edit-lesson/${lesson.id}/${course.id}`} className="ms-2"><BsPencilSquare /></Link>
                                   <Link className="ms-2 text-danger"><FaTrashAlt /></Link>
                                 </div>
                               </div>

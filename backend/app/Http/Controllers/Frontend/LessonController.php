@@ -61,7 +61,19 @@ class LessonController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $lesson = Lesson::find($id);
+
+        if ($lesson == null) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Lesson not Found!'
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => 200,
+            'data'=> $lesson,
+        ], 200);
     }
 
     /**
@@ -88,7 +100,7 @@ class LessonController extends Controller
 
         $validator = Validator::make($request->all(), [
             'chapter_id' => 'required',
-            'lesson' => 'required',
+            'lesson' => 'required|unique:lessons,title,'.$id,
         ]);
 
         if ($validator->fails()) {
