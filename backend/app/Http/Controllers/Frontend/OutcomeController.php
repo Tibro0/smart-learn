@@ -56,7 +56,7 @@ class OutcomeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $outcome = Outcome::findOrFail($id);
+        $outcome = Outcome::find($id);
 
         if ($outcome === null) {
             return response()->json([
@@ -92,7 +92,7 @@ class OutcomeController extends Controller
      */
     public function destroy(string $id)
     {
-        $outcome = Outcome::findOrFail($id);
+        $outcome = Outcome::find($id);
 
         if ($outcome === null) {
             return response()->json([

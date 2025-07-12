@@ -56,7 +56,7 @@ class RequirementController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $requirement = Requirement::findOrFail($id);
+        $requirement = Requirement::find($id);
 
         if ($requirement === null) {
             return response()->json([
@@ -92,7 +92,7 @@ class RequirementController extends Controller
      */
     public function destroy(string $id)
     {
-        $requirement = Requirement::findOrFail($id);
+        $requirement = Requirement::find($id);
 
         if ($requirement === null) {
             return response()->json([

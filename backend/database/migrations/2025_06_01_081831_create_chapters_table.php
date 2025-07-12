@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('chapters', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->unique();
+            $table->string('title');
             $table->foreignId('course_id')->constrained()->onDelete('cascade');
             $table->integer('sort_order');
             $table->boolean('status')->default(1);

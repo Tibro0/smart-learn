@@ -94,7 +94,7 @@ class CourseController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $course = Course::findOrFail($id);
+        $course = Course::find($id);
 
         if ($course === null) {
             return response()->json([

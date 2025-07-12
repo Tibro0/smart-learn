@@ -90,7 +90,7 @@ class LessonController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $lesson = Lesson::findOrFail($id);
+        $lesson = Lesson::find($id);
 
         if ($lesson == null) {
             return response()->json([
@@ -132,7 +132,7 @@ class LessonController extends Controller
      */
     public function destroy(string $id)
     {
-        $lesson = Lesson::findOrFail($id);
+        $lesson = Lesson::find($id);
 
         if ($lesson === null) {
             return response()->json([

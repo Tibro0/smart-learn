@@ -56,7 +56,7 @@ class ChapterController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $chapter = Chapter::findOrFail($id);
+        $chapter = Chapter::find($id);
 
         if ($chapter === null) {
             return response()->json([
@@ -92,7 +92,7 @@ class ChapterController extends Controller
      */
     public function destroy(string $id)
     {
-        $chapter = Chapter::findOrFail($id);
+        $chapter = Chapter::find($id);
 
         if ($chapter === null) {
             return response()->json([

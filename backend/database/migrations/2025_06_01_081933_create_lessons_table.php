@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('lessons', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->unique();
+            $table->string('title');
             $table->foreignId('chapter_id')->constrained()->onDelete('cascade');
             $table->enum('is_free_preview',['yes', 'no'])->default('no');
             $table->integer('duration')->nullable();
