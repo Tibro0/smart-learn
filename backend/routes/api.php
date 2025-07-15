@@ -32,6 +32,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('/chapters', ChapterController::class);
 
     // Lesson Route
-    Route::post('/save-courses-video/{id}', [LessonController::class, 'saveVideo']);
+    Route::post('/save-lesson-video/{id}', [LessonController::class, 'saveVideo']);
     Route::resource('/lessons', LessonController::class);
 });

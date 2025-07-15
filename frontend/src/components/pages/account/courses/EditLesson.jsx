@@ -3,9 +3,10 @@ import Layout from "../../../common/Layout";
 import UserSidebar from "../../../common/UserSidebar";
 import { useForm } from "react-hook-form";
 import { apiUrl, token } from "../../../common/Config";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import JoditEditor from "jodit-react";
 import toast from "react-hot-toast";
+import LessonVideo from "./LessonVideo";
 
 const EditLesson = ({ placeholder }) => {
   useEffect(() => {
@@ -21,7 +22,7 @@ const EditLesson = ({ placeholder }) => {
 
   const [chapters, setChapters] = useState();
   const [loading, setLoading] = useState(false);
-  const [lesson, setLesson] = useState();
+  const [lesson, setLesson] = useState([]);
   const params = useParams();
 
   const editor = useRef(null);
@@ -92,7 +93,6 @@ const EditLesson = ({ placeholder }) => {
       .then((res) => res.json())
       .then((result) => {
         if (result.status === 200) {
-          console.log(result);
           setLesson(result.data);
           reset({
             lesson: result.data.title,
@@ -117,6 +117,7 @@ const EditLesson = ({ placeholder }) => {
               <div className="col-md-12 mt-5 mb-3">
                 <div className="d-flex justify-content-between">
                   <h2 className="h4 mb-0 pb-0">Edit Lesson</h2>
+                  <Link className="btn btn-primary" to={`/account/courses/edit/${params.courseId}`}>Back</Link>
                 </div>
               </div>
               <div className="col-lg-3 account-sidebar">
@@ -145,7 +146,7 @@ const EditLesson = ({ placeholder }) => {
                               placeholder="Title"
                             />
                             {
-                                errors.lesson && <p className="invalid-feedback">{errors.lesson.message}</p>
+                              errors.lesson && <p className="invalid-feedback">{errors.lesson.message}</p>
                             }
                           </div>
 
@@ -170,7 +171,7 @@ const EditLesson = ({ placeholder }) => {
                                 })}
                             </select>
                             {
-                                errors.chapter_id && <p className="invalid-feedback">{errors.chapter_id.message}</p>
+                              errors.chapter_id && <p className="invalid-feedback">{errors.chapter_id.message}</p>
                             }
                           </div>
 
@@ -187,7 +188,7 @@ const EditLesson = ({ placeholder }) => {
                               placeholder="Duration"
                             />
                             {
-                                errors.duration && <p className="invalid-feedback">{errors.duration.message}</p>
+                              errors.duration && <p className="invalid-feedback">{errors.duration.message}</p>
                             }
                           </div>
 
@@ -201,7 +202,7 @@ const EditLesson = ({ placeholder }) => {
                               config={config}
                               tabIndex={1}
                               onBlur={(newContent) => setContent(newContent)}
-                              onChange={(newContent) => {}}
+                              onChange={(newContent) => { }}
                             />
                           </div>
 
@@ -237,11 +238,14 @@ const EditLesson = ({ placeholder }) => {
                             </label>
                           </div>
                           <button disabled={loading} className="btn btn-primary mt-3">
-                          {loading === false ? "Update" : "Please Wait..."}
-                        </button>
+                            {loading === false ? "Update" : "Please Wait..."}
+                          </button>
                         </div>
                       </div>
                     </form>
+                  </div>
+                  <div className="col-md-4">
+                    <LessonVideo lesson={lesson} />
                   </div>
                 </div>
               </div>
