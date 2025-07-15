@@ -33,7 +33,7 @@ class LessonController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'chapter' => 'required',
-            'lesson' => 'required|unique:lessons,title',
+            'lesson' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -101,7 +101,7 @@ class LessonController extends Controller
 
         $validator = Validator::make($request->all(), [
             'chapter_id' => 'required',
-            'lesson' => 'required|unique:lessons,title,'.$id,
+            'lesson' => 'required',
         ]);
 
         if ($validator->fails()) {
