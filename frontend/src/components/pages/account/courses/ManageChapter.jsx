@@ -110,6 +110,29 @@ const ManageChapter = ({ course, params }) => {
     }
   };
 
+  const deleteLesson = async (id) => {
+    if (confirm("Are you sure you want to delete ?")) {
+      await fetch(`${apiUrl}/lessons/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          setLoading(false);
+          if (result.status === 200) {
+            setChapters({ type: "UPDATE_CHAPTER", payload: result.chapter });
+            toast.success(result.message);
+          } else {
+            console.log("Something is Wrong!");
+          }
+        });
+    }
+  }
+
   useEffect(() => {
     if (course.chapters) {
       setChapters({ type: "SET_CHAPTER", payload: course.chapters });
@@ -150,7 +173,7 @@ const ManageChapter = ({ course, params }) => {
           <Accordion>
             {chapters.map((chapter, index) => {
               return (
-                <Accordion.Item eventKey={index}>
+                <Accordion.Item key={chapter.id} eventKey={index}>
                   <Accordion.Header>{chapter.title}</Accordion.Header>
                   <Accordion.Body>
                     <div className="row">
@@ -165,7 +188,7 @@ const ManageChapter = ({ course, params }) => {
                       <div className="col-md-12">
                         {chapter.lessons &&
                           chapter.lessons.map((lesson) => {
-                            return <div className="card shadow px-3 py-2 mb-2 rounded-3 border-0">
+                            return <div key={lesson.id} className="card shadow px-3 py-2 mb-2 rounded-3 border-0">
                               <div className="row">
                                 <div className="col-md-7">
                                   {lesson.title}
@@ -177,9 +200,9 @@ const ManageChapter = ({ course, params }) => {
                                   {
                                     lesson.is_free_preview == 'yes' && <span className="badge bg-success">Preview</span>
                                   }
-                                  
+
                                   <Link to={`/account/courses/edit-lesson/${lesson.id}/${course.id}`} className="ms-2"><BsPencilSquare /></Link>
-                                  <Link className="ms-2 text-danger"><FaTrashAlt /></Link>
+                                  <Link onClick={() => deleteLesson(lesson.id)} className="ms-2 text-danger"><FaTrashAlt /></Link>
                                 </div>
                               </div>
                             </div>;

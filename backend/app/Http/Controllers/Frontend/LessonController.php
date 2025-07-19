@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Chapter;
 use App\Models\Lesson;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -141,10 +142,15 @@ class LessonController extends Controller
             ], 404);
         }
 
+        $chapterId = $lesson->chapter_id;
+
         $lesson->delete();
+
+        $chapter = Chapter::where('id', $chapterId)->with('lessons')->first();
 
         return response()->json([
             'status' => 200,
+            'chapter' => $chapter,
             'message' => 'Lesson Deleted Successfully!'
         ], 200);
     }
