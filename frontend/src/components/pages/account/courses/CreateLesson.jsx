@@ -107,10 +107,6 @@ const CreateLesson = ({ showLessonModel, handleCloseLessonModel, course }) => {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            {/* <Button variant="primary" type="submit">
-            Save Changes
-          </Button> */}
-
             <button disabled={loading} className="btn btn-primary">
               {loading === false ? "Save" : "Please Wait..."}
             </button>
