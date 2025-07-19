@@ -10,6 +10,8 @@ import { FaPlus } from "react-icons/fa";
 import { BsPencilSquare } from "react-icons/bs";
 import { FaTrashAlt } from "react-icons/fa";
 import LessonsSort from "./LessonsSort";
+import SortChapters from "./SortChapters";
+import { RiDragMove2Fill } from "react-icons/ri";
 
 const ManageChapter = ({ course, params }) => {
   const {
@@ -43,6 +45,13 @@ const ManageChapter = ({ course, params }) => {
   const handleShowLessonSortModel = (lessons) => {
     setLessonsData(lessons);
     setShowLessonSortModel(true);
+  };
+
+  // Sort Chapter Model
+  const [showChapterSortModel, setShowChapterSortModel] = useState(false);
+  const handleCloseChapterSortModel = () => setShowChapterSortModel(false);
+  const handleShowChapterSortModel = (lessons) => {
+    setShowChapterSortModel(true);
   };
 
   const chapterReducer = (state, action) => {
@@ -156,9 +165,14 @@ const ManageChapter = ({ course, params }) => {
           <div className="d-flex">
             <div className="d-flex justify-content-between w-100">
               <h4 className="h5 mb-3">Chapters</h4>
+              <div>
               <Link onClick={() => handleShowLessonModel()}>
                 <FaPlus size={12} /> <strong>Add Lesson</strong>
               </Link>
+              <Link className="ms-2" onClick={() => handleShowChapterSortModel()}>
+                <RiDragMove2Fill /> <strong>Reorder Chapters</strong>
+              </Link>
+              </div>
             </div>
           </div>
           <form onSubmit={handleSubmit(onSubmit)} className="mb-4">
@@ -283,6 +297,13 @@ const ManageChapter = ({ course, params }) => {
         handleCloseLessonSortModel={handleCloseLessonSortModel}
         lessonsData={lessonsData}
         setChapters={setChapters}
+      />
+
+      <SortChapters
+      showChapterSortModel={showChapterSortModel}
+      handleCloseChapterSortModel={handleCloseChapterSortModel}
+      course={course}
+      setChapters={setChapters}
       />
     </>
   );
