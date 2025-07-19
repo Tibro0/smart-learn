@@ -54,7 +54,7 @@ class AccountController extends Controller
         }
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            $user = User::findOrFail(Auth::user()->id);
+            $user = User::find(Auth::user()->id);
             $token = $user->createToken('token')->plainTextToken;
 
             return response()->json([

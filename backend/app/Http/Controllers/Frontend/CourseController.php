@@ -160,7 +160,7 @@ class CourseController extends Controller
 
     public function saveCourseImage(string $id, Request $request)
     {
-        $course = Course::findOrFail($id);
+        $course = Course::find($id);
 
         if ($course === null) {
             return response()->json([
