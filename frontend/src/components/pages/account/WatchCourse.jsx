@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 
 const WatchCourse = () => {
   return (
     <div>
       <h1>Watch Course</h1>
     </div>
-  )
-}
+  );
+};
 
-export default WatchCourse
+export default WatchCourse;
