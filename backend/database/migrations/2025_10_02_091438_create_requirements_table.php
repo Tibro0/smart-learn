@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('requirements', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('course_id')->constrained()->onDelete('cascade');
+            $table->string('text');
+            $table->integer('sort_order');
             $table->timestamps();
         });
     }
