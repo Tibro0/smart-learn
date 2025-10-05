@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import Layout from "../common/Layout";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { apiUrl } from "../common/Config";
 import toast from "react-hot-toast";
+import { AuthContext } from "../context/Auth";
 
 const Login = () => {
   // Page Title
@@ -11,6 +12,7 @@ const Login = () => {
     document.title = "Smart Learn | Login";
   }, []);
 
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const {
@@ -35,10 +37,11 @@ const Login = () => {
           const userInfo = {
             name: result.name,
             id: result.id,
-            token: result.token
-          }
-          localStorage.setItem('userInfoLms', JSON.stringify(userInfo));
-          navigate('/account/dashboard')
+            token: result.token,
+          };
+          localStorage.setItem("userInfoLms", JSON.stringify(userInfo));
+          login(userInfo);
+          navigate("/account/dashboard");
         } else if (result.status == 401) {
           toast.error(result.message);
         } else {

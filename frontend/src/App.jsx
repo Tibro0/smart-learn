@@ -10,6 +10,8 @@ import MyCourses from "./components/pages/account/MyCourses";
 import MyLearning from "./components/pages/account/MyLearning";
 import ChangePassword from "./components/pages/account/ChangePassword";
 import WatchCourse from "./components/pages/account/WatchCourse";
+import Dashboard from "./components/pages/account/Dashboard";
+import { RequireAuth } from "./components/common/RequireAuth";
 
 function App() {
   return (
@@ -25,6 +27,16 @@ function App() {
           <Route path="/account/courses-enrolled" element={<MyLearning />} />
           <Route path="/account/watch-course" element={<WatchCourse />} />
           <Route path="/account/change-password" element={<ChangePassword />} />
+
+          <Route
+            path="/account/dashboard"
+            element={
+              <RequireAuth>
+                <Dashboard />
+              </RequireAuth>
+            }
+          />
+          
         </Routes>
       </BrowserRouter>
 
