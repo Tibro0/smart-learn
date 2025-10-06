@@ -13,6 +13,7 @@ import WatchCourse from "./components/pages/account/WatchCourse";
 import Dashboard from "./components/pages/account/Dashboard";
 import { RequireAuth } from "./components/common/RequireAuth";
 import CreateCourse from "./components/pages/account/courses/CreateCourse";
+import EditCourse from "./components/pages/account/courses/EditCourse";
 
 function App() {
   return (
@@ -43,6 +44,15 @@ function App() {
             element={
               <RequireAuth>
                 <CreateCourse />
+              </RequireAuth>
+            }
+          />
+
+          <Route
+            path="/account/courses/edit/:id"
+            element={
+              <RequireAuth>
+                <EditCourse />
               </RequireAuth>
             }
           />
