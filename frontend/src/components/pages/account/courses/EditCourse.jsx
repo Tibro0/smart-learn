@@ -169,7 +169,7 @@ const EditCourse = () => {
                             {categories &&
                               categories.map((category) => {
                                 return (
-                                  <option value={category.id}>
+                                  <option value={category.id} key={category.id}>
                                     {category.name}
                                   </option>
                                 );
@@ -199,7 +199,9 @@ const EditCourse = () => {
                             {levels &&
                               levels.map((level) => {
                                 return (
-                                  <option value={level.id}>{level.name}</option>
+                                  <option value={level.id} key={level.id}>
+                                    {level.name}
+                                  </option>
                                 );
                               })}
                           </select>
@@ -227,7 +229,7 @@ const EditCourse = () => {
                             {languages &&
                               languages.map((language) => {
                                 return (
-                                  <option value={language.id}>
+                                  <option value={language.id} key={language.id}>
                                     {language.name}
                                   </option>
                                 );
