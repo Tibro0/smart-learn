@@ -2,38 +2,32 @@
 
 namespace Database\Seeders;
 
-use App\Models\Language;
+use App\Models\Level;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class LanguageSeeder extends Seeder
+class LevelSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Language::insert([
+        Level::insert([
             [
-                'name' => 'English',
+                'name' => 'Beginner',
                 'status' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Spanish',
+                'name' => 'Intermediate',
                 'status' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'name' => 'French',
-                'status' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'Hindi',
+                'name' => 'Expert',
                 'status' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
