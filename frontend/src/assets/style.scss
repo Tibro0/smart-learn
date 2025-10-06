@@ -9,6 +9,10 @@ $tertiary-color: #3ecbda;
 $bg-light: #f6f3f3;
 $text-grey: #585858;
 
+.active{
+    color: $secondary-color;
+}
+
 body{
    font-family: $primary-font; 
    background-color: $bg-light;

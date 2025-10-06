@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { FaChartBar, FaDesktop, FaUserLock } from "react-icons/fa";
 import { BsMortarboardFill } from "react-icons/bs";
 import { MdLogout } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../context/Auth";
 
 const UserSidebar = () => {
@@ -12,9 +12,9 @@ const UserSidebar = () => {
       <div className="card-body  p-4">
         <ul>
           <li className="d-flex align-items-center">
-            <Link to="/account/dashboard">
+            <NavLink className={({ isActive }) => (isActive ? "active" : "")} to="/account/dashboard">
               <FaChartBar size={16} className="me-2 " /> Dashboard
-            </Link>
+            </NavLink>
           </li>
 
           <li className="d-flex align-items-center">
