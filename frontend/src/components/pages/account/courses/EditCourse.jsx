@@ -49,8 +49,8 @@ const EditCourse = () => {
   });
 
   const onSubmit = async (data) => {
-    await fetch(`${apiUrl}/courses`, {
-      method: "POST",
+    await fetch(`${apiUrl}/courses/${params.id}`, {
+      method: "PUT",
       headers: {
         "Content-type": "application/json",
         Accept: "application/json",
@@ -62,7 +62,6 @@ const EditCourse = () => {
       .then((result) => {
         if (result.status == 200) {
           toast.success(result.message);
-          navigate("/account/courses/edit/" + result.data.id);
         } else {
           const errors = result.errors;
           Object.keys(errors).forEach((field) => {
@@ -287,9 +286,16 @@ const EditCourse = () => {
                             {...register("cross_price")}
                             type="text"
                             id="cross-price"
-                            className={`form-control`}
+                            className={`form-control ${
+                              errors.cross_price && "is-invalid"
+                            }`}
                             placeholder="Cross Price"
                           />
+                          {errors.cross_price && (
+                            <p className="invalid-feedback">
+                              {errors.cross_price.message}
+                            </p>
+                          )}
                         </div>
 
                         <button className="btn btn-primary">Update</button>

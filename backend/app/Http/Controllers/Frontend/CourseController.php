@@ -85,10 +85,11 @@ class CourseController extends Controller
 
         $validator = Validator::make($request->all(), [
             'title' => 'required|min:5',
-            'category' => 'required',
-            'level' => 'required',
-            'language' => 'required',
-            'sell_price' => 'required',
+            'category' => 'required|integer',
+            'level' => 'required|integer',
+            'language' => 'required|integer',
+            'sell_price' => 'required|numeric',
+            'cross_price' => 'nullable|numeric',
         ]);
 
         if ($validator->fails()) {
