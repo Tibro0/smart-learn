@@ -12,6 +12,7 @@ import ChangePassword from "./components/pages/account/ChangePassword";
 import WatchCourse from "./components/pages/account/WatchCourse";
 import Dashboard from "./components/pages/account/Dashboard";
 import { RequireAuth } from "./components/common/RequireAuth";
+import CreateCourse from "./components/pages/account/courses/CreateCourse";
 
 function App() {
   return (
@@ -36,7 +37,16 @@ function App() {
               </RequireAuth>
             }
           />
-          
+          {/* Courses All Route Start */}
+          <Route
+            path="/account/courses/create"
+            element={
+              <RequireAuth>
+                <CreateCourse />
+              </RequireAuth>
+            }
+          />
+          {/* Courses All Route End */}
         </Routes>
       </BrowserRouter>
 
