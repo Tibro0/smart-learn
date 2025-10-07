@@ -11,6 +11,7 @@ const EditCourse = () => {
   const [categories, setCategories] = useState([]);
   const [levels, setLevels] = useState([]);
   const [languages, setLanguages] = useState([]);
+  const [loading, setLoading] = useState(false);
   const params = useParams();
 
   const {
@@ -49,6 +50,7 @@ const EditCourse = () => {
   });
 
   const onSubmit = async (data) => {
+    setLoading(true);
     await fetch(`${apiUrl}/courses/${params.id}`, {
       method: "PUT",
       headers: {
@@ -60,6 +62,7 @@ const EditCourse = () => {
     })
       .then((res) => res.json())
       .then((result) => {
+        setLoading(false);
         if (result.status == 200) {
           toast.success(result.message);
         } else {
@@ -298,7 +301,9 @@ const EditCourse = () => {
                           )}
                         </div>
 
-                        <button className="btn btn-primary">Update</button>
+                        <button disabled={loading} className="btn btn-primary">
+                          {loading == false ? "Update" : "Please Wait.."}
+                        </button>
                       </div>
                     </div>
                   </form>
