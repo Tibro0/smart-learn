@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { apiUrl, token } from "../../../common/Config";
 import toast from "react-hot-toast";
 import { MdDragIndicator } from "react-icons/md";
@@ -81,6 +81,30 @@ const ManageOutcome = () => {
       });
   };
 
+  const deleteOutcome = async (id) => {
+    if (confirm("Are You Sure You Want To Delete?")) {
+      await fetch(`${apiUrl}/outcomes/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          setLoading(false);
+          if (result.status == 200) {
+            const newOutcomes = outcomes.filter((outcome) => outcome.id != id);
+            setOutcomes(newOutcomes);
+            toast.success(result.message);
+          } else {
+            toast.error('Something Went Wrong!');
+          }
+        });
+    }
+  };
+
   useEffect(() => {
     fetchOutcomes();
   }, []);
@@ -125,16 +149,18 @@ const ManageOutcome = () => {
                     <div className="d-flex justify-content-between w-100">
                       <div className="ps-2">{outcome.text}</div>
                       <div className="d-flex">
-                        <a
-                          href="#"
+                        <Link
                           onClick={() => handleShow(outcome)}
                           className="text-primary me-1"
                         >
                           <BsPencilSquare />
-                        </a>
-                        <a href="" className="text-danger">
+                        </Link>
+                        <Link
+                          onClick={() => deleteOutcome(outcome.id)}
+                          className="text-danger"
+                        >
                           <FaTrashAlt />
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   </div>

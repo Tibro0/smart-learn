@@ -36,8 +36,6 @@ const UpdateOutcome = ({
       .then((result) => {
         setLoading(false);
         if (result.status == 200) {
-          //   const newOutcomes = [...outcomes, result.data];
-          //   setOutcomes(newOutcomes);
           const updatedOutcomes = outcomes.map((outcome) =>
             outcome.id == result.data.id
               ? { ...outcome, text: result.data.text }
