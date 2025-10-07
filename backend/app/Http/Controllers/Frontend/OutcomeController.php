@@ -53,9 +53,9 @@ class OutcomeController extends Controller
 
         if ($outcome == null) {
             return response()->json([
-                'status' => 401,
+                'status' => 404,
                 'message' => 'Outcome Not Found!'
-            ], 401);
+            ], 404);
         }
 
         $validator = Validator::make($request->all(), [
@@ -79,5 +79,22 @@ class OutcomeController extends Controller
     }
 
     // This method will delete a outcome
-    public function destroy() {}
+    public function destroy(string $id)
+    {
+        $outcome = Outcome::find($id);
+
+        if ($outcome == null) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Outcome Not Found!'
+            ], 404);
+        }
+
+        $outcome->delete();
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Outcome Deleted Successfully!'
+        ], 200);
+    }
 }
