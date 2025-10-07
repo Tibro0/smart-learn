@@ -47,7 +47,36 @@ class OutcomeController extends Controller
     }
 
     // This method will update outcome
-    public function update() {}
+    public function update(string $id, Request $request)
+    {
+        $outcome = Outcome::find($id);
+
+        if ($outcome == null) {
+            return response()->json([
+                'status' => 401,
+                'message' => 'Outcome Not Found!'
+            ], 401);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'outcome' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->errors()
+            ], 400);
+        }
+
+        $outcome->text = $request->outcome;
+        $outcome->save();
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Outcome Updated Successfully!'
+        ], 200);
+    }
 
     // This method will delete a outcome
     public function destroy() {}
