@@ -24,7 +24,8 @@ class OutcomeController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'outcome' => 'required'
+            'outcome' => 'required',
+            'course_id' => 'required',
         ]);
 
         if ($validator->fails()) {
