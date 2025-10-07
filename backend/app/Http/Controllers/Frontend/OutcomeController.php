@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Outcome;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class OutcomeController extends Controller
 {
@@ -22,18 +23,32 @@ class OutcomeController extends Controller
     // This method will store outcome
     public function store(Request $request)
     {
-        
+        $validator = Validator::make($request->all(), [
+            'outcome' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->errors()
+            ], 400);
+        }
+
+        $outcome = new Outcome();
+        $outcome->course_id = $request->course_id;
+        $outcome->text = $request->outcome;
+        $outcome->sort_order = 1000;
+        $outcome->save();
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Outcome Added Successfully!'
+        ], 200);
     }
 
     // This method will update outcome
-    public function update()
-    {
-
-    }
+    public function update() {}
 
     // This method will delete a outcome
-    public function destroy()
-    {
-
-    }
+    public function destroy() {}
 }
