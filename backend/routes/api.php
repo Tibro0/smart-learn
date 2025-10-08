@@ -3,7 +3,7 @@
 use App\Http\Controllers\Frontend\AccountController;
 use App\Http\Controllers\Frontend\CourseController;
 use App\Http\Controllers\Frontend\OutcomeController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Frontend\RequirementController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/user', function (Request $request) {
@@ -28,5 +28,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('outcomes', 'store');
         Route::put('outcomes/{id}', 'update');
         Route::delete('outcomes/{id}', 'destroy');
+    });
+
+    Route::controller(RequirementController::class)->group(function(){
+        Route::get('requirements', 'index');
+        Route::post('requirements', 'store');
+        Route::put('requirements/{id}', 'update');
+        Route::delete('requirements/{id}', 'destroy');
     });
 });
