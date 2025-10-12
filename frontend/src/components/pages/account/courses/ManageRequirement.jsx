@@ -6,6 +6,7 @@ import { apiUrl, token } from "../../../common/Config";
 import { MdDragIndicator } from "react-icons/md";
 import { BsPencilSquare } from "react-icons/bs";
 import { FaTrashAlt } from "react-icons/fa";
+import UpdateRequirement from "./UpdateRequirement";
 
 const ManageRequirement = () => {
   const [loading, setLoading] = useState(false);
@@ -144,6 +145,13 @@ const ManageRequirement = () => {
             })}
         </div>
       </div>
+      <UpdateRequirement
+        showRequirement={showRequirement}
+        requirements={requirements}
+        setRequirements={setRequirements}
+        requirementData={requirementData}
+        handleClose={handleClose}
+      />
     </>
   );
 };
