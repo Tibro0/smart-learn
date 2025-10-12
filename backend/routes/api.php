@@ -21,6 +21,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('courses/{id}', 'show');
         Route::post('courses/meta-data', 'metaData');
         Route::put('courses/{id}', 'update');
+        Route::post('save-course-image/{id}', 'saveCourseImage');
     });
 
     Route::controller(OutcomeController::class)->group(function(){
