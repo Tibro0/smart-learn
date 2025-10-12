@@ -81,6 +81,30 @@ const ManageRequirement = () => {
       });
   };
 
+  const deleteRequirement = async (id) => {
+    if (confirm("Are You Sure You Want To Delete?")) {
+      await fetch(`${apiUrl}/requirements/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          setLoading(false);
+          if (result.status == 200) {
+            const newRequirements = requirements.filter((requirement) => requirement.id != id);
+            setRequirements(newRequirements);
+            toast.success(result.message);
+          } else {
+            toast.error("Something Went Wrong!");
+          }
+        });
+    }
+  }
+
   useEffect(() => {
     fetchRequirements();
   }, []);
@@ -132,7 +156,7 @@ const ManageRequirement = () => {
                           <BsPencilSquare />
                         </Link>
                         <Link
-                          onClick={() => deleteOutcome(requirement.id)}
+                          onClick={() => deleteRequirement(requirement.id)}
                           className="text-danger"
                         >
                           <FaTrashAlt />

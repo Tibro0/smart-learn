@@ -99,7 +99,7 @@ const ManageOutcome = () => {
             setOutcomes(newOutcomes);
             toast.success(result.message);
           } else {
-            toast.error('Something Went Wrong!');
+            toast.error("Something Went Wrong!");
           }
         });
     }
