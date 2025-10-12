@@ -100,4 +100,18 @@ class OutcomeController extends Controller
             'message' => 'Outcome Deleted Successfully!'
         ], 200);
     }
+
+    public function sortOutcomes(Request $request)
+    {
+        if (!empty($request->outcomes)) {
+            foreach ($request->outcomes as $key => $outcome) {
+                Outcome::where('id', $outcome['id'])->update(['sort_order', $key]);
+            }
+        }
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Order Saved Successfully!'
+        ], 200);
+    }
 }
