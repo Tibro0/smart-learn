@@ -21,7 +21,12 @@ const ManageRequirement = () => {
     reset,
   } = useForm();
 
-  
+  const [showRequirement, setShowRequirement] = useState(false);
+  const handleClose = () => setShowRequirement(false);
+  const handleShow = (requirement) => {
+    setShowRequirement(true);
+    setRequirementData(requirement);
+  };
 
   const onSubmit = async (data) => {
     setLoading(true);
