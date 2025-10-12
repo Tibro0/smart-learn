@@ -12,7 +12,7 @@ class OutcomeController extends Controller
     // This method will return all outcomes of a course
     public function index(Request $request)
     {
-        $outcomes = Outcome::where('course_id', $request->course_id)->orderBy('sort_order')->get();
+        $outcomes = Outcome::where('course_id', $request->course_id)->orderBy('sort_order', 'ASC')->get();
 
         return response()->json([
             'status' => 200,

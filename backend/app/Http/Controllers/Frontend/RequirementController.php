@@ -12,7 +12,7 @@ class RequirementController extends Controller
     // This method will return all Requirements of a course
     public function index(Request $request)
     {
-        $requirements = Requirement::where('course_id', $request->course_id)->orderBy('sort_order')->get();
+        $requirements = Requirement::where('course_id', $request->course_id)->orderBy('sort_order', 'ASC')->get();
 
         return response()->json([
             'status' => 200,
