@@ -36,5 +36,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('requirements', 'store');
         Route::put('requirements/{id}', 'update');
         Route::delete('requirements/{id}', 'destroy');
+        Route::post('sort-requirements', 'sortRequirements');
     });
 });

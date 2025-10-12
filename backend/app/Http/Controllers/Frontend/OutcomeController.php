@@ -101,6 +101,7 @@ class OutcomeController extends Controller
         ], 200);
     }
 
+    // This Method Will Sort Requirements
     public function sortOutcomes(Request $request)
     {
         if (!empty($request->outcomes)) {
@@ -111,7 +112,7 @@ class OutcomeController extends Controller
 
         return response()->json([
             'status' => 200,
-            'message' => 'Order Saved Successfully!'
+            'message' => 'Order Updated Successfully!'
         ], 200);
     }
 }

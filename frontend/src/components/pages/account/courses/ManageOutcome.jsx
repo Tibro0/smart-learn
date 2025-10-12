@@ -49,7 +49,7 @@ const ManageOutcome = () => {
         Accept: "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({outcomes:updatedOutcomes}),
+      body: JSON.stringify({ outcomes: updatedOutcomes }),
     })
       .then((res) => res.json())
       .then((result) => {
