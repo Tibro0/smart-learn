@@ -41,9 +41,24 @@ const ManageOutcome = () => {
     saveOrder(reorderedItems);
   };
 
-  const saveOrder = (UpdatedOutcomes) => {
-    console.log(UpdatedOutcomes);
-    
+  const saveOrder = async (updatedOutcomes) => {
+    await fetch(`${apiUrl}/sort-outcomes`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({outcomes:updatedOutcomes}),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.status == 200) {
+          toast.success(result.message);
+        } else {
+          toast.error("Something Went Wrong!");
+        }
+      });
   };
 
   const onSubmit = async (data) => {
