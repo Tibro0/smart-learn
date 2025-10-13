@@ -13,7 +13,7 @@ registerPlugin(
   FilePondPluginFileValidateType
 );
 
-const EditCover = ({course, setCourse}) => {
+const EditCover = ({ course, setCourse }) => {
   const [files, setFiles] = useState([]);
 
   return (
@@ -55,6 +55,10 @@ const EditCover = ({course, setCourse}) => {
           name="image"
           labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
         />
+
+        {course.course_small_image && (
+          <img src={course.course_small_image} className="w-100 rounded" />
+        )}
       </div>
     </div>
   );
