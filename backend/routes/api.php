@@ -52,5 +52,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::controller(LessonController::class)->group(function(){
         Route::post('lessons', 'store');
+        Route::put('lessons/{id}', 'update');
     });
 });

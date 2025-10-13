@@ -28,12 +28,52 @@ class LessonController extends Controller
         $lesson->chapter_id = $request->chapter_id ;
         $lesson->title = $request->lesson;
         $lesson->sort_order = 1000;
+        $lesson->status = $request->status;
         $lesson->save();
 
         return response()->json([
             'status' => 200,
             'data' => $lesson,
             'message' => 'Lesson Added Successfully!'
+        ], 200);
+    }
+
+    // This method will update Lesson
+    public function update(string $id, Request $request)
+    {
+        $lesson = Lesson::find($id);
+
+        if ($lesson == null) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Lesson Not Found!'
+            ], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'chapter_id' => 'required',
+            'lesson' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->errors()
+            ], 400);
+        }
+
+        $lesson->chapter_id = $request->chapter_id ;
+        $lesson->title = $request->lesson;
+        $lesson->is_free_preview = ($request->free_preview == false) ? 'no' : 'yes';
+        $lesson->duration = $request->duration;
+        $lesson->description = $request->description;
+        $lesson->status = $request->status;
+        $lesson->save();
+
+        return response()->json([
+            'status' => 200,
+            'data' => $lesson,
+            'message' => 'Lesson Updated Successfully!'
         ], 200);
     }
 }
