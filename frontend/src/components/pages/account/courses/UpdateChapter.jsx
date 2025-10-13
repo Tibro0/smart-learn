@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { apiUrl, token } from "../../../common/Config";
 import toast from "react-hot-toast";
 
-const UpdateChapter = ({ chapterData, showChapter, handleClose }) => {
+const UpdateChapter = ({ chapterData, showChapter, handleClose, setChapters }) => {
   const [loading, setLoading] = useState(false);
 
   const {
@@ -17,7 +17,7 @@ const UpdateChapter = ({ chapterData, showChapter, handleClose }) => {
 
   const onSubmit = async (data) => {
     setLoading(true);
-    await fetch(`${apiUrl}/outcomes/${outcomeData.id}`, {
+    await fetch(`${apiUrl}/chapters/${chapterData.id}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
@@ -30,12 +30,7 @@ const UpdateChapter = ({ chapterData, showChapter, handleClose }) => {
       .then((result) => {
         setLoading(false);
         if (result.status == 200) {
-          const updatedOutcomes = outcomes.map((outcome) =>
-            outcome.id == result.data.id
-              ? { ...outcome, text: result.data.text }
-              : outcome
-          );
-          setOutcomes(updatedOutcomes);
+          setChapters({ type: "UPDATE_CHAPTER", payload: result.data });
           toast.success(result.message);
         } else {
           const errors = result.errors;

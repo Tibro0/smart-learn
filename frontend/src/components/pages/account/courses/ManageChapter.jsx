@@ -132,6 +132,7 @@ const ManageChapter = ({ course, params }) => {
     chapterData={chapterData}
     showChapter={showChapter}
     handleClose={handleClose}
+    setChapters={setChapters}
     />
     </>
   );
