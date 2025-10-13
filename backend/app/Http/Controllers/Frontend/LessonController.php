@@ -76,4 +76,24 @@ class LessonController extends Controller
             'message' => 'Lesson Updated Successfully!'
         ], 200);
     }
+
+    // This method will delete a lesson
+    public function destroy(string $id)
+    {
+        $lesson = Lesson::find($id);
+
+        if ($lesson == null) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Lesson Not Found!'
+            ], 404);
+        }
+
+        $lesson->delete();
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Lesson Deleted Successfully!'
+        ], 200);
+    }
 }
