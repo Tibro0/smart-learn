@@ -7,6 +7,7 @@ import { apiUrl, token } from "../../../common/Config";
 import toast from "react-hot-toast";
 import ManageOutcome from "./ManageOutcome";
 import ManageRequirement from "./ManageRequirement";
+import EditCover from "./EditCover";
 
 const EditCourse = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const EditCourse = () => {
   const [levels, setLevels] = useState([]);
   const [languages, setLanguages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [course, setCourse] = useState([]);
   const params = useParams();
 
   const {
@@ -44,6 +46,7 @@ const EditCourse = () => {
               sell_price: result.data.price,
               cross_price: result.data.cross_price,
             });
+            setCourse(result.data)
           } else {
             toast.error("Something Went Wrong!");
           }
@@ -313,6 +316,10 @@ const EditCourse = () => {
                 <div className="col-md-5">
                   <ManageOutcome/>
                   <ManageRequirement/>
+                  <EditCover
+                    course={course}
+                    setCourse={setCourse}
+                  />
                 </div>
               </div>
             </div>
