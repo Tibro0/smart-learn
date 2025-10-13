@@ -44,7 +44,7 @@ class CourseController extends Controller
 
     public function show(string $id)
     {
-        $course = Course::find($id);
+        $course = Course::with('chapters')->find($id);
 
         if ($course == null) {
             return response()->json([

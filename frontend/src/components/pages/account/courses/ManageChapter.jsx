@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { useForm } from "react-hook-form";
 import { apiUrl, token } from "../../../common/Config";
 import toast from "react-hot-toast";
+import { Accordion } from "react-bootstrap";
 
-const ManageChapter = ({course, params}) => {
-  const [loading, setLoading] = useState(false);
-
+const ManageChapter = ({ course, params }) => {
   const {
     register,
     handleSubmit,
@@ -13,6 +12,29 @@ const ManageChapter = ({course, params}) => {
     formState: { errors },
     reset,
   } = useForm();
+  const [loading, setLoading] = useState(false);
+
+  const chapterReducer = (state, action) => {
+    switch (action.type) {
+      case "SET_CHAPTERS":
+        return action.payload;
+      case "ADD_CHAPTER":
+        return [...state, action.payload];
+      case "UPDATE_CHAPTER":
+        return state.map((chapter) => {
+          if (chapter.id === action.payload.id) {
+            return action.payload;
+          }
+          return chapter;
+        });
+      case "DELETE_CHAPTER":
+        return state.filter((chapter) => chapter.id != action.payload);
+      default:
+        return state;
+    }
+  };
+
+  const [chapters, setChapters] = useReducer(chapterReducer, []);
 
   const onSubmit = async (data) => {
     setLoading(true);
@@ -33,6 +55,7 @@ const ManageChapter = ({course, params}) => {
         if (result.status == 200) {
           //const newOutcomes = [...outcomes, result.data];
           //setOutcomes(newOutcomes);
+          setChapters({ type: "ADD_CHAPTER", payload: result.data });
           toast.success(result.message);
           reset();
         } else {
@@ -43,6 +66,12 @@ const ManageChapter = ({course, params}) => {
         }
       });
   };
+
+  useEffect(() => {
+    if (course.chapters) {
+      setChapters({ type: "SET_CHAPTERS", payload: course.chapters });
+    }
+  }, [course]);
 
   return (
     <div className="card shadow border-0 mt-4">
@@ -68,6 +97,19 @@ const ManageChapter = ({course, params}) => {
             {loading == false ? "Save" : "Please Wait.."}
           </button>
         </form>
+
+        <Accordion>
+          {chapters.map((chapter,index) => {
+            return (
+              <Accordion.Item eventKey={index}>
+                <Accordion.Header>{chapter.title}</Accordion.Header>
+                <Accordion.Body>
+                  
+                </Accordion.Body>
+              </Accordion.Item>
+            );
+          })}
+        </Accordion>
       </div>
     </div>
   );
