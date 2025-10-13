@@ -17,11 +17,11 @@ const ManageChapter = ({ course, params }) => {
   const [chapterData, setChapterData] = useState([]);
 
   const [showChapter, setShowChapter] = useState(false);
-    const handleClose = () => setShowChapter(false);
-    const handleShow = (chapter) => {
-      setShowChapter(true);
-      setChapterData(chapter);
-    };
+  const handleClose = () => setShowChapter(false);
+  const handleShow = (chapter) => {
+    setShowChapter(true);
+    setChapterData(chapter);
+  };
 
   const chapterReducer = (state, action) => {
     switch (action.type) {
@@ -76,6 +76,28 @@ const ManageChapter = ({ course, params }) => {
       });
   };
 
+  const deleteChapter = async (id) => {
+    if (confirm("Are You Sure You Want To Delete?")) {
+      await fetch(`${apiUrl}/chapters/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          if (result.status == 200) {
+            setChapters({ type: "DELETE_CHAPTER", payload: id });
+            toast.success(result.message);
+          } else {
+            toast.error("Something Went Wrong!");
+          }
+        });
+    }
+  };
+
   useEffect(() => {
     if (course.chapters) {
       setChapters({ type: "SET_CHAPTERS", payload: course.chapters });
@@ -84,56 +106,64 @@ const ManageChapter = ({ course, params }) => {
 
   return (
     <>
-    <div className="card shadow border-0 mt-4">
-      <div className="card-body">
-        <div className="d-flex">
-          <h4 className="h5 mb-3">Chapters</h4>
-        </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="mb-4">
-          <div className="mb-3">
-            <input
-              {...register("chapter", {
-                required: "The Chapter Filed is Required.",
-              })}
-              type="text"
-              className={`form-control ${errors.chapter && "is-invalid"}`}
-              placeholder="Chapter"
-            />
-            {errors.chapter && (
-              <p className="invalid-feedback">{errors.chapter.message}</p>
-            )}
+      <div className="card shadow border-0 mt-4">
+        <div className="card-body">
+          <div className="d-flex">
+            <h4 className="h5 mb-3">Chapters</h4>
           </div>
-          <button disabled={loading} className="btn btn-primary">
-            {loading == false ? "Save" : "Please Wait.."}
-          </button>
-        </form>
+          <form onSubmit={handleSubmit(onSubmit)} className="mb-4">
+            <div className="mb-3">
+              <input
+                {...register("chapter", {
+                  required: "The Chapter Filed is Required.",
+                })}
+                type="text"
+                className={`form-control ${errors.chapter && "is-invalid"}`}
+                placeholder="Chapter"
+              />
+              {errors.chapter && (
+                <p className="invalid-feedback">{errors.chapter.message}</p>
+              )}
+            </div>
+            <button disabled={loading} className="btn btn-primary">
+              {loading == false ? "Save" : "Please Wait.."}
+            </button>
+          </form>
 
-        <Accordion>
-          {chapters.map((chapter,index) => {
-            return (
-              <Accordion.Item eventKey={index} key={chapter.id}>
-                <Accordion.Header>{chapter.title}</Accordion.Header>
-                <Accordion.Body>
-                  <div className="d-flex">
-                    <button className="btn btn-danger btn-sm">Delete Chapter</button>
-                    <button 
+          <Accordion>
+            {chapters.map((chapter, index) => {
+              return (
+                <Accordion.Item eventKey={index} key={chapter.id}>
+                  <Accordion.Header>{chapter.title}</Accordion.Header>
+                  <Accordion.Body>
+                    <div className="d-flex">
+                      <button
+                        onClick={() => deleteChapter(chapter.id)}
+                        className="btn btn-danger btn-sm"
+                      >
+                        Delete Chapter
+                      </button>
+                      <button
                         onClick={() => handleShow(chapter)}
-                    className="btn btn-primary btn-sm ms-2">Update Chapter</button>
-                  </div>
-                </Accordion.Body>
-              </Accordion.Item>
-            );
-          })}
-        </Accordion>
+                        className="btn btn-primary btn-sm ms-2"
+                      >
+                        Update Chapter
+                      </button>
+                    </div>
+                  </Accordion.Body>
+                </Accordion.Item>
+              );
+            })}
+          </Accordion>
+        </div>
       </div>
-    </div>
 
-    <UpdateChapter
-    chapterData={chapterData}
-    showChapter={showChapter}
-    handleClose={handleClose}
-    setChapters={setChapters}
-    />
+      <UpdateChapter
+        chapterData={chapterData}
+        showChapter={showChapter}
+        handleClose={handleClose}
+        setChapters={setChapters}
+      />
     </>
   );
 };

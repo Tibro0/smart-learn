@@ -4,7 +4,12 @@ import { useForm } from "react-hook-form";
 import { apiUrl, token } from "../../../common/Config";
 import toast from "react-hot-toast";
 
-const UpdateChapter = ({ chapterData, showChapter, handleClose, setChapters }) => {
+const UpdateChapter = ({
+  chapterData,
+  showChapter,
+  handleClose,
+  setChapters,
+}) => {
   const [loading, setLoading] = useState(false);
 
   const {

@@ -47,7 +47,7 @@ const EditCourse = () => {
               sell_price: result.data.price,
               cross_price: result.data.cross_price,
             });
-            setCourse(result.data)
+            setCourse(result.data);
           } else {
             toast.error("Something Went Wrong!");
           }
@@ -314,18 +314,12 @@ const EditCourse = () => {
                     </div>
                   </form>
 
-                  <ManageChapter
-                  course={course}
-                  params={params}
-                  />
+                  <ManageChapter course={course} params={params} />
                 </div>
                 <div className="col-md-5">
-                  <ManageOutcome/>
-                  <ManageRequirement/>
-                  <EditCover
-                    course={course}
-                    setCourse={setCourse}
-                  />
+                  <ManageOutcome />
+                  <ManageRequirement />
+                  <EditCover course={course} setCourse={setCourse} />
                 </div>
               </div>
             </div>
