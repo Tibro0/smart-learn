@@ -167,7 +167,10 @@ const ManageChapter = ({ course, params }) => {
                         {chapter.lessons &&
                           chapter.lessons.map((lesson) => {
                             return (
-                              <div className="card shadow px-3 py-2 mb-2" key={lesson.id}>
+                              <div
+                                className="card shadow px-3 py-2 mb-2"
+                                key={lesson.id}
+                              >
                                 <div className="row">
                                   <div className="col-md-7">{lesson.title}</div>
                                   <div className="col-md-5 text-end">
@@ -183,7 +186,7 @@ const ManageChapter = ({ course, params }) => {
                                       </span>
                                     )}
 
-                                    <Link className="ms-2">
+                                    <Link to={`/account/courses/edit-lesson/${lesson.id}/${course.id}`} className="ms-2">
                                       <BsPencilSquare />
                                     </Link>
                                     <Link className="ms-2 text-danger">
