@@ -33,11 +33,11 @@ const CreateLesson = ({ showLessonModel, handleCloseLessonModel, course }) => {
           //setChapters({ type: "UPDATE_CHAPTER", payload: result.data });
           toast.success(result.message);
           reset({
-            chapter : '',
-            lesson : '',
-            status:1
-          })
-          handleCloseLessonModel()
+            chapter: "",
+            lesson: "",
+            status: 1,
+          });
+          handleCloseLessonModel();
         } else {
           const errors = result.errors;
           Object.keys(errors).forEach((field) => {
@@ -68,7 +68,11 @@ const CreateLesson = ({ showLessonModel, handleCloseLessonModel, course }) => {
               <option value="">Select a Chapter</option>
               {course.chapters &&
                 course.chapters.map((chapter) => {
-                  return <option value={chapter.id} key={chapter.id}>{chapter.title}</option>;
+                  return (
+                    <option value={chapter.id} key={chapter.id}>
+                      {chapter.title}
+                    </option>
+                  );
                 })}
             </select>
             {errors.chapter && (
