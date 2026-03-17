@@ -55,5 +55,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('lessons/{id}', 'show');
         Route::put('lessons/{id}', 'update');
         Route::delete('lessons/{id}', 'destroy');
+        Route::post('save-lesson-video/{id}', 'saveVideo');
     });
 });
