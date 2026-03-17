@@ -13,11 +13,11 @@ registerPlugin(
     FilePondPluginFileValidateType
 );
 
-const LessonVideo = () => {
+const LessonVideo = ({lesson}) => {
     const [files, setFiles] = useState([]);
 
     return (
-        <div className="card shadow border-0 mt-4">
+        <div className="card shadow border-0">
             <div className="card-body">
                 <div className="d-flex">
                     <h4 className="h5 mb-3">Lesson Video</h4>
@@ -32,7 +32,7 @@ const LessonVideo = () => {
                     maxFiles={1}
                     server={{
                         process: {
-                            url: `${apiUrl}/save-course-image/${course.id}`,
+                            url: `${apiUrl}/save-lesson-video/${lesson.id}`,
                             method: "POST",
                             headers: {
                                 Authorization: `Bearer ${token}`,
@@ -40,11 +40,6 @@ const LessonVideo = () => {
                             onload: (response) => {
                                 response = JSON.parse(response);
                                 toast.success(response.message);
-                                const updateCourseData = {
-                                    ...course,
-                                    course_small_image: response.data.course_small_image,
-                                };
-                                setCourse(updateCourseData);
                                 setFiles([]);
                             },
                             onerror: (errors) => {
@@ -52,7 +47,7 @@ const LessonVideo = () => {
                             },
                         },
                     }}
-                    name="image"
+                    name="video"
                     labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
                 />
 

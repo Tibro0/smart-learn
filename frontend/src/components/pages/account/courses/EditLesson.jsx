@@ -6,6 +6,7 @@ import { apiUrl, token } from "../../../common/Config";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import JoditEditor from "jodit-react";
+import LessonVideo from "./LessonVideo";
 
 const EditLesson = ({ placeholder }) => {
   // Page Title
@@ -22,7 +23,7 @@ const EditLesson = ({ placeholder }) => {
   } = useForm();
   const [loading, setLoading] = useState(false);
   const [chapters, setChapters] = useState();
-  const [lesson, setLesson] = useState();
+  const [lesson, setLesson] = useState([]);
   const params = useParams();
 
   const editor = useRef(null);
@@ -141,9 +142,8 @@ const EditLesson = ({ placeholder }) => {
                               required: "The Title Field is Required.",
                             })}
                             type="text"
-                            className={`form-control ${
-                              errors.lesson && "is-invalid"
-                            }`}
+                            className={`form-control ${errors.lesson && "is-invalid"
+                              }`}
                             placeholder="Title"
                           />
                           {errors.lesson && (
@@ -161,9 +161,8 @@ const EditLesson = ({ placeholder }) => {
                             {...register("chapter_id", {
                               required: "Please Select a Chapter",
                             })}
-                            className={`form-select ${
-                              errors.chapter_id && "is-invalid"
-                            }`}
+                            className={`form-select ${errors.chapter_id && "is-invalid"
+                              }`}
                           >
                             <option value="">Select a Chapter</option>
                             {chapters &&
@@ -191,9 +190,8 @@ const EditLesson = ({ placeholder }) => {
                               required: "The Duration Field is Required.",
                             })}
                             type="number"
-                            className={`form-control ${
-                              errors.duration && "is-invalid"
-                            }`}
+                            className={`form-control ${errors.duration && "is-invalid"
+                              }`}
                             placeholder="Duration"
                           />
                           {errors.duration && (
@@ -213,7 +211,7 @@ const EditLesson = ({ placeholder }) => {
                             config={config}
                             tabIndex={1}
                             onBlur={(newContent) => setContent(newContent)}
-                            onChange={(newContent) => {}}
+                            onChange={(newContent) => { }}
                           />
                         </div>
 
@@ -261,6 +259,9 @@ const EditLesson = ({ placeholder }) => {
                       </div>
                     </div>
                   </form>
+                </div>
+                <div className="col-md-4">
+                  <LessonVideo lesson={lesson} />
                 </div>
               </div>
             </div>
