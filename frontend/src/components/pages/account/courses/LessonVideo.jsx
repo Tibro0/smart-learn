@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FilePond, registerPlugin } from "react-filepond";
+import ReactPlayer from 'react-player'
 import "filepond/dist/filepond.min.css";
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
@@ -13,8 +14,15 @@ registerPlugin(
     FilePondPluginFileValidateType
 );
 
-const LessonVideo = ({lesson}) => {
+const LessonVideo = ({ lesson }) => {
     const [files, setFiles] = useState([]);
+    const [videoUrl, setVideoUrl] = useState();
+
+    useEffect(() => {
+        if (lesson) {
+            setVideoUrl(lesson.video_url);
+        }
+    }, [lesson])
 
     return (
         <div className="card shadow border-0">
@@ -40,6 +48,7 @@ const LessonVideo = ({lesson}) => {
                             onload: (response) => {
                                 response = JSON.parse(response);
                                 toast.success(response.message);
+                                setVideoUrl(response.data.video_url);
                                 setFiles([]);
                             },
                             onerror: (errors) => {
@@ -51,6 +60,9 @@ const LessonVideo = ({lesson}) => {
                     labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
                 />
 
+                {
+                    videoUrl && <ReactPlayer width='100%' height='100%' controls src={videoUrl} />
+                }
 
             </div>
         </div>
