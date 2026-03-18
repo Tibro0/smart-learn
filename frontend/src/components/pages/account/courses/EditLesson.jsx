@@ -3,7 +3,7 @@ import Layout from "../../../common/Layout";
 import UserSidebar from "../../../common/UserSidebar";
 import { useForm } from "react-hook-form";
 import { apiUrl, token } from "../../../common/Config";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import JoditEditor from "jodit-react";
 import LessonVideo from "./LessonVideo";
@@ -118,6 +118,7 @@ const EditLesson = ({ placeholder }) => {
             <div className="col-md-12 mt-5 mb-3">
               <div className="d-flex justify-content-between">
                 <h2 className="h4 mb-0 pb-0">Edit Lesson</h2>
+                <Link className="btn btn-primary" to={`/account/courses/edit/${params.courseId}`}>Back</Link>
               </div>
             </div>
             <div className="col-lg-3 account-sidebar">

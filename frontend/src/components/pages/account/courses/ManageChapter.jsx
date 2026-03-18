@@ -110,6 +110,29 @@ const ManageChapter = ({ course, params }) => {
     }
   };
 
+  const deleteLesson = async (id) => {
+    if (confirm("Are You Sure You Want To Delete?")) {
+      await fetch(`${apiUrl}/lessons/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          if (result.status == 200) {
+            setChapters({ type: "UPDATE_CHAPTER", payload: result.chapter });
+            toast.success(result.message);
+          } else {
+            toast.error("Something Went Wrong!");
+          }
+        });
+    }
+  };
+
+
   useEffect(() => {
     if (course.chapters) {
       setChapters({ type: "SET_CHAPTERS", payload: course.chapters });
@@ -189,7 +212,7 @@ const ManageChapter = ({ course, params }) => {
                                     <Link to={`/account/courses/edit-lesson/${lesson.id}/${course.id}`} className="ms-2">
                                       <BsPencilSquare />
                                     </Link>
-                                    <Link className="ms-2 text-danger">
+                                    <Link onClick={() => deleteLesson(lesson.id)} className="ms-2 text-danger">
                                       <FaTrashAlt />
                                     </Link>
                                   </div>
